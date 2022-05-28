@@ -48,27 +48,48 @@ app.get("/", (req, res, next) => {
     </html>`
     console.log("A request to the root path has been made.");
 
+
+    // Send back a response to the requester
+    res.send(htmlData);
+  });
+
+
     // find.get("/:posts/:id", (req, res, next) =>{
     //     if(!post.id){next()}
     // }else{
 
     // }
 
-    find.get("/:posts/:id", (req, res, next) => {
-        const { posts, id } = req.params;
-      
-        if (!post.id){...}) {
-          next();
-        } else {
-          let productName = getProductName(id);
-          res.send(`<h1> View more about ${productName}!<h1>`);
-        }
-      });
-  
-    // Send back a response to the requester
-    res.send(htmlData);
-  });
+    app.get("/:posts/:id", (req, res, next) => {
+      const { post, id } = req.params;
+    
+      if (!post.id) {
+        next();
+      } else {
+        let productName = getProductName(id);
+        res.send(`<h1> View more about ${productName}!<h1>`);
+      }
+    });
 
+    app.get("*", (req, res) => {
+      
+      res.status(404).send($`{ <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Wizard News</title>
+          <link rel="stylesheet" href="/style.css" />
+        </head>
+        <body>
+          <header><img src="/logo.png"/>Wizard News</header>
+          <div class="not-found">
+            <p>Accio Page! 🧙‍♀️ ... Page Not Found</p>
+          </div>
+        </body>
+        </html> }`);
+    });
+
+
+  
 
   // This destructures the port number from the process.environment variable.
 // If none, the default is set to 1337.
